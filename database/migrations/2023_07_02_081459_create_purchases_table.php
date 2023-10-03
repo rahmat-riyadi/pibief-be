@@ -12,19 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->id();
-            $table->uuid();
-            $table->string('vendor');
+            $table->uuid('id')->primary();
+            $table->uuid('vendor_id');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('CASCADE');
             $table->string('order_number');
-            $table->string('order_date');
-            $table->string('due_date');
-            $table->string('warehouse');
-            $table->string('tag');
+            $table->date('order_date');
+            $table->date('due_date');
+            $table->string('branch');
             $table->string('responsible_person');
-            $table->longText('note');
-            $table->string('status');
+            $table->longText('note')->nullable();
+            $table->boolean('status')->default(false);
             $table->decimal('total_price');
-            $table->string('payment_status');
+            $table->enum('payment_status', ['paid', 'waiting', 'missing']);
+            $table->string('payment_type');
             $table->timestamps();
         });
     }

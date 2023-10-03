@@ -9,9 +9,16 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $keyType = 'string';
+
+    protected $guarded = ['products'];
+    protected $with = ['purchaseProduct'];
 
     public function purchaseProduct(){
         return $this->hasMany(PurchaseProduct::class);
+    }
+
+    public function vendor(){
+        return $this->belongsTo(Vendor::class);
     }
 }

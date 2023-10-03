@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PurchaseProduct extends Model
+class Vendor extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function purchase(){
-        return $this->belongsTo(Purchase::class);
+        return $this->hasMany(Purchase::class);
     }
 }
